@@ -1,10 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from rest_framework.decorators import authentication_classes, permission_classes, api_view
 from rest_framework.parsers import JSONParser
 
 from movies.models import MovieModel
 # Create your views here.
 from movies.serializers import MovieSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 def aliView(request):
@@ -13,6 +16,11 @@ def aliView(request):
     return render(request, 'ali.html', {"data": ss})
 
 
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @permission_classes(IsAuthenticated)
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def movie_list(request):
     """
     List all code snippets, or create a new snippet.
