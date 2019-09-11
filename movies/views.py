@@ -6,7 +6,7 @@ from rest_framework.parsers import JSONParser
 from movies.models import MovieModel
 # Create your views here.
 from movies.serializers import MovieSerializer
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -19,7 +19,7 @@ def aliView(request):
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @permission_classes(IsAuthenticated)
 @api_view(['GET'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
+@authentication_classes([SessionAuthentication, BasicAuthentication,TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def movie_list(request):
     """

@@ -5,7 +5,7 @@ from movies.models import MovieModel
 class GeneresSerializer(serializers.ModelSerializer):
     # ss= serializers.RelatedField(many=False, read_only=True)
     class Meta:
-        model = Geners
+        model = Geners 
         fields = ('id', 'name')
 
 class MovieSerializer(serializers.ModelSerializer):

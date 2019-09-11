@@ -15,18 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from movies.views import aliView, movie_list
-from django.urls import path, include
-from rest_framework.authtoken import views
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('ali/', aliView),
-    path('api/movie', movie_list),
-    path('rest-auth/', include('rest_framework.urls')),
-    # path('api/movies/ ', include('movies.urls')),
+from django.urls import path
 
-    url(r'^api-token-auth/', views.obtain_auth_token),
-    url(r'^api/movies/', include('movies.api.urls')),
+from movies.api.views import MovieApiView, MovieDetailApiView, MovieUpdateApiView, MovieDeleteApiView, \
+    MovieCreateApiView
+from movies.views import aliView
+
+urlpatterns = [
+    # path('',   aliView, name='list_movie'),
+    path('', MovieApiView.as_view(), name='list_movie'),
+    path('<int:pk>/', MovieDetailApiView.as_view(), name='detail_movie'),
+    path('edit/<int:pk>/', MovieUpdateApiView.as_view(), name='update_movie'),
+    path('delete/<int:pk>/', MovieDeleteApiView.as_view(), name='delete_movie'),
+    path('create/', MovieCreateApiView.as_view(), name='create_movie'),
+    # path('ali', aliView),
 
 ]
-
